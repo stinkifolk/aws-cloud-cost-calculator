@@ -14,7 +14,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-data "aws_caller_identity" "current" {}
 
 resource "aws_sns_topic" "cost_alerts" {
   name = "${var.project_name}-alerts"
@@ -59,11 +58,10 @@ resource "aws_iam_role_policy" "lambda_policy" {
       {
         Effect = "Allow"
         Action = [
-          "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
-        Resource = "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:*"
+        Resource = "${aws_cloudwatch_log_group.lambda_logs.arn}:*"
       }
     ]
   })
