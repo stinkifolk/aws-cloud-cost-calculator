@@ -1,0 +1,5 @@
+
+aws_region         = "ap-southeast-1"
+project_name       = "cloud-cost-calculator"
+cost_threshold_usd = 50
+alert_email        = "stinkifolk@proton.me"
